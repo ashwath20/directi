@@ -11,12 +11,13 @@ import Icon from '@material-ui/core/Icon';
 import Rating from '@material-ui/lab/Rating';
 import Modal from '@material-ui/core/Modal';
 import cookie from 'react-cookies'
+import NavBarComponent from '../Components/NavBarComponent'
 let gui;
 let message = "empty";
 class Search extends React.Component {
     componentDidMount() {
         gui = cookie.load("guest");
-console.log(this.props.history.location.pathname);
+        console.log(this.props.history.location.pathname);
         if (!gui) {
             guest_id().then(res => {
                 cookie.save("guest", res, { path: "/" });
@@ -41,19 +42,7 @@ console.log(this.props.history.location.pathname);
 
             <div style={{ width: '100%' }}>
 
-                <Navbar bg="dark" expand="lg">
-
-                    <Navbar.Brand href="#home" style={{ color: '#fff' }} >Home</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
-                            <Nav.Link href="#home" style={{ color: '#fff' }}>Search</Nav.Link>
-                            <Nav.Link href="#link" style={{ color: '#fff' }}>Profile</Nav.Link>
-
-                        </Nav>
-
-                    </Navbar.Collapse>
-                </Navbar>
+<NavBarComponent url={this.props.location.pathname}/>
                 {this.props.postUpdate ?
                     <Toast>
                         <Toast.Header>
@@ -201,8 +190,8 @@ console.log(this.props.history.location.pathname);
                                 <Button variant="primary" style={{ alignContent: 'center', display: "flex", justifyContent: "center", alignItems: "center", width: 150, marginLeft: 35, marginTop: 10 }}
                                     onClick={() => {
 
-                                       
-                                        postRating(gui.guest_session_id, this.props.currentMovie.id, rating,this.props.history.location.pathname.split("/")[2]).then(res => {
+
+                                        postRating(gui.guest_session_id, this.props.currentMovie.id, rating, this.props.history.location.pathname.split("/")[2]).then(res => {
                                             this.props.showSubmittedLoader(false);
                                             message = "Review Recorded"
                                             this.props.togleToast(true);

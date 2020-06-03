@@ -64,13 +64,12 @@ export const getRatedList = async (gi, media) => {
         })
     })
 }
-
 export const getTopList = async (gi, media) => {
     return new Promise((res, rej) => {
         console.log(gi);
-        console.log("/trending/movie/week?api_key=" + apikey)
+      
         //console.log("movie/"+id+"?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
-        axios.get("/trending/movie/week?api_key=" + apikey).then(response => {
+        axios.get("trending/all/week?api_key=" + apikey).then(response => {
             console.log("got")
 
             console.log(response.data);
@@ -81,12 +80,14 @@ export const getTopList = async (gi, media) => {
         })
     })
 }
+
+
 export const postRating = async (gi, movie_id, val, media) => {
     return new Promise((res, rej) => {
 
         const instance = axios.create({
             baseURL: 'https://api.themoviedb.org/3',
-            timeout: 1000,
+            
             headers: {
                 'Content-Type': 'application/json'
             }

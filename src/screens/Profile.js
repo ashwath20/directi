@@ -12,7 +12,10 @@ import {getRatedList,guest_id} from '../functions/networkcalls'
 import cookie from 'react-cookies'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import NavBarComponent from '../Components/NavBarComponent';
+
 let gui;
+
 class Profile extends React.Component {
     
    componentDidMount(){
@@ -47,23 +50,12 @@ render(){
     return(
         <div>
           
-             <Navbar bg="dark" expand="lg">
-
-<Navbar.Brand href="/" style={{ color: '#fff' }} >Home</Navbar.Brand>
-<Navbar.Toggle aria-controls="basic-navbar-nav" />
-<Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-        <Link to="/" style={{color:'#fff'}}>Search</Link>
-        <Link to="/profile" style={{color:'#fff'}}>Profile</Link>
-    </Nav>
-
-</Navbar.Collapse>
-</Navbar>
+          <NavBarComponent url={this.props.location.pathname}/>
           <div style={{    display: "flex",flexDirection:'row',
           justifyContent: "center",
           alignItems: "center"}}>
 <Dialog onClose={()=>{this.props.togleProfile(false)}} aria-labelledby="simple-dialog-title" open={this.props.showProfile}>
-      <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Review Summary</DialogTitle>
       <Table striped bordered hover>
                                 <thead>
                                     <tr>

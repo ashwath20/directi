@@ -4,16 +4,15 @@ import './App.css';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Nav from 'react-bootstrap/Nav'
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 import Successtab from './screens/Search'
 import Search from './screens/Search';
 import { Navbar, Button, Image, Form, FormControl, Modal, Card, Badge } from 'react-bootstrap';
 import {connect} from 'react-redux';
 import request from "superagent";
 import debounce from "lodash.debounce";
-
-
-
+import {Link} from 'react-router-dom';
+import NavBarComponent from './Components/NavBarComponent';
+import {getTopList} from '../src/functions/networkcalls';
 window.onscroll = debounce(() => {
   if (
     window.innerHeight + document.documentElement.scrollTop
@@ -26,29 +25,27 @@ window.onscroll = debounce(() => {
 class App extends React.Component {
   constructor(props){
     super(props);
+    this.handleLink=this.handleLink.bind(this);
     
   }
   
 
   
   componentDidMount(){
+    getTopList().then(resp=>{
+this.props.updateSearchData(resp.results);
+    },error=>{
+console.log(error);
+    })
     
+  }
+  handleLink(path){
+    return (<Link to={path}></Link>)
   }
   render(){
   return (
     <div style={{backgroundColor:'#F5F5F5'}}>
-      <Navbar bg="dark" expand="lg">
-  <Navbar.Brand href="/"style={{color:'#fff'}} >Home</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-      <Link to="/" style={{color:'#fff'}}>Search</Link>
-      <Link to="/profile" style={{color:'#fff'}}>Profile</Link>
-      
-    </Nav>
-    
-  </Navbar.Collapse>
-</Navbar>
+     <NavBarComponent url={this.props.location.pathname}/>
     <div style={{marginRight:10,marginTop:15,marginLeft:10, }} >
 
      

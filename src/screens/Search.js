@@ -28,26 +28,7 @@ class Search extends React.Component {
             shadowOpacity: 1.0
         }}>
 
-            <Form inline style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center', paddingTop: 20, paddingBottom: 20 }}>
-                <FormControl type="text" placeholder="Search" className="mr-sm-2" ref="search" style={{ marginLeft: 300 }} />
-                <Button style={{ marginRight: 200 }} variant="outline-success" onClick={() => {
-                    console.log("press");
-                    console.log(this.refs.search.value);
-                    if (this.props.searchKey !== this.refs.search.value) {
-                        this.props.updateSearchKey(this.refs.search.value);
-                        this.props.updateSearchData([]);
-                    }
-                  
-                        getSearch(this.refs.search.value, this.props.pageNo).then(res => {
-                            this.props.updateSearchData([...this.props.searchData, ...res])
-                            this.props.updatePageNo(this.props.pageNo + 1);
-                        }, error => {
-                            console.log(error);
-                        })
-                    
-                }}>Search</Button>
-                <Button onClick={()=>{this.props.updateHasMore(true)}} variant={this.props.searchData.length > 0 ? "info" : "diabled"}>{this.props.searchData.length > 0 ? "LoadMore" : ""}</Button>{' '}
-            </Form>
+            
             {this.props.searchData.length < 1 ?
                 <div style={{ alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>  <p >Search Movie... </p>
                 </div>

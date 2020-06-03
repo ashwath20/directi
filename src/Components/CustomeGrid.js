@@ -6,11 +6,13 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import { OverlayTrigger,Popover, Button ,Nav,Image,Form,FormControl,Card,Badge} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+
+import { OverlayTrigger, Popover, Button, Nav, Image, Form, FormControl, Card, Badge } from 'react-bootstrap';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-      width:'100%',
+    width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -45,43 +47,50 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function TitlebarGridList(props) {
   const classes = useStyles();
-console.log(props.images);
+  console.log(props.images);
   return (
     <div className={classes.root}>
-    <GridList cellHeight={180} className={classes.gridList} cols={8}>
-      {props.images.map((tile) => (
-        <GridListTile key={tile.src} cols={tile.cols || 1} onClick={()=>{console.log("clecked")
-      window.open("/item/"+tile.media_type+"/"+tile.id, "_blank");        }}>
-          <img src={"https://image.tmdb.org/t/p/w500/"+tile.poster_path} alt={tile.title} />
-          <GridListTileBar
+      <GridList cellHeight={180} className={classes.gridList} cols={8}>
+        {props.images.map((tile) => (
           
-              title={tile.title?tile.title:tile.original_name}
-             
+          <GridListTile key={tile.src} cols={tile.cols || 1} onClick={() => {
+            console.log("clecked")
+                      // window.open("/item/" + tile.media_type + "/" + tile.id, "_blank");
+          }}>
+             <Link to={"/item/" + tile.media_type + "/" + tile.id}>
+            <img src={"https://image.tmdb.org/t/p/w500/" + tile.poster_path} alt={tile.title} />
+            </Link>
+            <GridListTileBar
+
+              title={tile.title ? tile.title : tile.original_name}
+
               actionIcon={
-                <OverlayTrigger trigger="click" placement="right" overlay={ <Popover id="popover-basic">
-                <Popover.Title as="h3">Details</Popover.Title>
-                <Popover.Content>
-              desc
+                <OverlayTrigger trigger="click" placement="right" overlay={<Popover id="popover-basic">
+                  <Popover.Title as="h3">Details</Popover.Title>
+                  <Popover.Content>
+                    desc
                 </Popover.Content>
-              </Popover>}>
-    <InfoIcon/>
-  </OverlayTrigger>
+                </Popover>}>
+                  <InfoIcon />
+                </OverlayTrigger>
+                
+
               }
             />
-        </GridListTile>
-       
-      ))}
-    </GridList>
-  </div>
+          </GridListTile>
+         
+        ))}
+      </GridList>
+    </div>
 
   );
 }
-const popover = e=>(
-    <Popover id="popover-basic">
-      <Popover.Title as="h3">Popover right</Popover.Title>
-      <Popover.Content>
-        And here's some <strong>amazing</strong> content. It's very engaging.
+const popover = e => (
+  <Popover id="popover-basic">
+    <Popover.Title as="h3">Popover right</Popover.Title>
+    <Popover.Content>
+      And here's some <strong>amazing</strong> content. It's very engaging.
         right?
       </Popover.Content>
-    </Popover>
-  );
+  </Popover>
+);
