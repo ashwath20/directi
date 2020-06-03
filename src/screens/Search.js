@@ -2,10 +2,10 @@ import React from 'react';
 import { Navbar, Button, Nav, Image, Form, FormControl, Modal, Card, Badge } from 'react-bootstrap';
 import TitlebarGridList from '../Components/CustomeGrid';
 import { connect } from 'react-redux';
-import request from "superagent";
-import debounce from "lodash.debounce";
+
 import InfiniteScroll from 'react-infinite-scroller';
 import { getSearch } from '../functions/networkcalls';
+import { CardBody } from 'react-bootstrap/Card';
 class Search extends React.Component {
 
     state =
@@ -13,6 +13,10 @@ class Search extends React.Component {
             message: "Loading...", showimgmodal: false, popup: null, json: [{ query: [] }],
             isLoading: false, ondate: null, fromdate: null, todate: null, desc: "", tags: "",
 
+        }
+        constructor(p){
+            super(p);
+            this.cbHandleMovieClick=this.cbHandleMovieClick.bind(this);
         }
     render() {
         return (<div style={{
@@ -28,7 +32,7 @@ class Search extends React.Component {
             shadowOpacity: 1.0
         }}>
 
-            
+
             {this.props.searchData.length < 1 ?
                 <div style={{ alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>  <p >Search Movie... </p>
                 </div>
@@ -41,6 +45,7 @@ class Search extends React.Component {
                                 this.props.updateSearchData([...this.props.searchData, ...res])
                                 this.props.updatePageNo(this.props.pageNo + 1);
                                 this.props.updateHasMore(false);
+
                             }, error => {
                                 console.log(error);
                             })
@@ -51,19 +56,27 @@ class Search extends React.Component {
                     threshold={0}
 
                 >
-                    <TitlebarGridList images={this.props.searchData} callback={this.callback} style={{ width: '100%', height: 500 }} />
+                    <Card>
+                        <Card.Header><h2>{this.props.header}</h2></Card.Header>
+                        <Card.Body>
+                            <TitlebarGridList  cbHandleMovieClick={this.cbHandleMovieClick}images={this.props.searchData} callback={this.callback} style={{ width: '100%', height: 500 }} />
+                        </Card.Body>
+                    </Card>
                 </InfiniteScroll>
             }
         </div>)
     }
-    cbHandleMovieClick(objec){
-try{
-//this.props.updateCurrentMovie(object);
+    cbHandleMovieClick() {
+        try {
+            //this.props.updateCurrentMovie(object);
+ this.props.updateHasMore(true)
+         } catch (e) {
 
-}catch(e){
-
-}
+        }
     }
+
+
+
 } function mapStateToProps(state) {
     console.log("search");
     console.log(state);
@@ -72,7 +85,8 @@ try{
         searchData: state.searchData,
         searchKey: state.searchKey,
         pageNo: state.pageNo,
-        hasMore:state.hasMore,
+        hasMore: state.hasMore,
+        header: state.header,
 
     }
 }
@@ -84,7 +98,7 @@ function mapDispatchToProps(dispacher) {
         updateSearchData: (searchData) => dispacher({ type: "searchData", load: searchData }),
         updateSearchKey: (searchKey) => dispacher({ type: "searchKey", load: searchKey }),
         updatePageNo: (page) => dispacher({ type: "pageNo", load: page }),
-        updateHasMore: (val) => dispacher({  type: "hasMore", load: val })
+        updateHasMore: (val) => dispacher({ type: "hasMore", load: val })
     }
 }
 //export default  App;

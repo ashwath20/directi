@@ -21,6 +21,8 @@ var intial = {
     showProfile:false,
     tempData:[],
     topList:[],
+    
+    header:"Weekly Top"
 }
 const reducer = function (state = intial, action) {
 
@@ -44,7 +46,9 @@ const reducer = function (state = intial, action) {
         case "showProfile":return {...state,showProfile:action.load}
         case "tempData":return {...state,tempData:action.load}
         case "topList":return{...state,topList:action.load}
+        case "header":return {...state,header:action.load}
     }
+    
     return state;
 
 

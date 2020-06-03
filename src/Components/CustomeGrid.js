@@ -3,12 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Row, Col,Image } from 'react-bootstrap';
 
-import { OverlayTrigger, Popover, Button, Nav, Image, Form, FormControl, Card, Badge } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,69 +26,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
 export default function TitlebarGridList(props) {
   const classes = useStyles();
   console.log(props.images);
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList} cols={8}>
-        {props.images.map((tile) => (
-          
-          <GridListTile key={tile.src} cols={tile.cols || 1} onClick={() => {
-            console.log("clecked")
-                      // window.open("/item/" + tile.media_type + "/" + tile.id, "_blank");
-          }}>
-             <Link to={"/item/" + tile.media_type + "/" + tile.id}>
-            <img src={"https://image.tmdb.org/t/p/w500/" + tile.poster_path} alt={tile.title} />
-            </Link>
-            <GridListTileBar
+        {
+          props.images.map((tile) => (
 
-              title={tile.title ? tile.title : tile.original_name}
+            <GridListTile key={tile.src} cols={tile.cols || 1} onClick={() => {
+              console.log("clecked")
+              // window.open("/item/" + tile.media_type + "/" + tile.id, "_blank");
+            }}>
+              <Link to={"/item/" + tile.media_type + "/" + tile.id}>
+                <Image style={{width:180,height:180}}src={"https://image.tmdb.org/t/p/w500/" + tile.poster_path} alt={tile.title} />
+              </Link>
+              <GridListTileBar
 
-              actionIcon={
-                <OverlayTrigger trigger="click" placement="right" overlay={<Popover id="popover-basic">
-                  <Popover.Title as="h3">Details</Popover.Title>
-                  <Popover.Content>
-                    desc
-                </Popover.Content>
-                </Popover>}>
-                  <InfoIcon />
-                </OverlayTrigger>
-                
+                title={tile.title ? tile.title : tile.original_name}
 
-              }
-            />
-          </GridListTile>
-         
-        ))}
+              />
+            </GridListTile>
+          ))}
+        <Row style={{ width: "100%", marginTop:10 ,marginLeft:500 }}>
+          <Col style={{ width: "100%", alignItems: 'center' }}>
+            <Button style={{ marginLeft: 10, alignItems: 'center',justifyContent:'center'  }} onClick={() => {
+              console.log(props);
+              props.cbHandleMovieClick();
+            }}>Load more</Button>
+          </Col>
+        </Row>
       </GridList>
     </div>
 
   );
 }
-const popover = e => (
-  <Popover id="popover-basic">
-    <Popover.Title as="h3">Popover right</Popover.Title>
-    <Popover.Content>
-      And here's some <strong>amazing</strong> content. It's very engaging.
-        right?
-      </Popover.Content>
-  </Popover>
-);

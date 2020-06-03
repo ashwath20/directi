@@ -35,10 +35,10 @@ export const getEach = async (id, media) => {
 
 export const guest_id = async () => {
     return new Promise((res, rej) => {
-
+console.log("session new")
         //console.log("movie/"+id+"?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
         axios.get("authentication/guest_session/new?api_key=" + apikey).then(response => {
-            console.log("got")
+            console.log(response)
 
             console.log(response.data);
             res(response.data)
@@ -67,7 +67,7 @@ export const getRatedList = async (gi, media) => {
 export const getTopList = async (gi, media) => {
     return new Promise((res, rej) => {
         console.log(gi);
-      
+
         //console.log("movie/"+id+"?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
         axios.get("trending/all/week?api_key=" + apikey).then(response => {
             console.log("got")
@@ -84,10 +84,10 @@ export const getTopList = async (gi, media) => {
 
 export const postRating = async (gi, movie_id, val, media) => {
     return new Promise((res, rej) => {
-
+console.log(gi)
         const instance = axios.create({
             baseURL: 'https://api.themoviedb.org/3',
-            
+
             headers: {
                 'Content-Type': 'application/json'
             }

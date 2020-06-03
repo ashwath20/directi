@@ -2,26 +2,24 @@ import React from 'react';
 import { Navbar, Button, Nav, Image, Form, FormControl, Modal, Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import request from "superagent";
-import debounce from "lodash.debounce";
-import InfiniteScroll from 'react-infinite-scroller';
+
 import { getSearch } from '../functions/networkcalls';
 class NavBarComponent extends React.Component {
-    constructor(p){
-super(p);
-this.handleSearch=this.handleSearch.bind(this);
+    constructor(p) {
+        super(p);
+        this.handleSearch = this.handleSearch.bind(this);
     }
     render() {
         console.log(this.props.url);
         return (
             <div style={{ backgroundColor: '#F5F5F5' }}>
                 <Navbar bg="dark" expand="lg">
-                    <Navbar.Brand href="/" style={{ color: '#fff' }} >Home</Navbar.Brand>
+                  
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <div >
-                                <Link to="" style={{ fontSize: 19, marginRight: 10, color: '#fff' }}>Search</Link>
+                                <Link to="" style={{ fontSize: 19, marginRight: 10, color: '#fff' }}>Home</Link>
                             </div>
                             <div>
                                 <Link to="/profile" style={{ fontSize: 19, marginRight: 10, color: '#fff' }}>Profile</Link>
@@ -29,9 +27,9 @@ this.handleSearch=this.handleSearch.bind(this);
                         </Nav>
                         {this.props.url === "/" ?
                             <Form inline>
-                                <FormControl ref="search" type="text" placeholder="Search" className="mr-sm-2" />
-                                <Button variant="outline-success" onClick={()=>{this.handleSearch()}}>Search</Button>
-                                <Button style={{marginLeft:10}}onClick={()=>{this.props.updateHasMore(true)}} variant={this.props.searchData.length > 0 ? "info" : "diabled"}>{this.props.searchData.length > 0 ? "LoadMore" : ""}</Button>{' '}
+                                <FormControl ref="search" type="text" placeholder="Search and rate movies ,Tv shows" className="mr-sm-2" />
+                                <Button variant="outline-success" onClick={() => { this.handleSearch() }}>Search</Button>
+                               
                             </Form> : null
                         }
                     </Navbar.Collapse>
@@ -43,6 +41,7 @@ this.handleSearch=this.handleSearch.bind(this);
 
     handleSearch() {
         console.log("press");
+        this.props.setHeading("Search Result");
         console.log(this.refs.search.value);
         if (this.props.searchKey !== this.refs.search.value) {
             this.props.updateSearchKey(this.refs.search.value);
@@ -80,7 +79,9 @@ function mapDispatchToProps(dispacher) {
         updateSearchData: (searchData) => dispacher({ type: "searchData", load: searchData }),
         updateSearchKey: (searchKey) => dispacher({ type: "searchKey", load: searchKey }),
         updatePageNo: (page) => dispacher({ type: "pageNo", load: page }),
-        updateHasMore: (val) => dispacher({ type: "hasMore", load: val })
+        updateHasMore: (val) => dispacher({ type: "hasMore", load: val }),
+        setHeading: (val) => dispacher({ type: "header", load: val })
+
     }
 }
 

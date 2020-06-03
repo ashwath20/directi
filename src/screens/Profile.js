@@ -1,11 +1,6 @@
 import React from 'react';
 import { Card, Button, thead, tr, th, tbody, Navbar, Nav, Modal,Table, Image, Alert, Toast } from 'react-bootstrap'
-import {Link} from 'react-router-dom';
-import TitlebarGridList from '../Components/CustomeGrid';
-import request from "superagent";
-import debounce from "lodash.debounce";
-import InfiniteScroll from 'react-infinite-scroller';
-import { getSearch } from '../functions/networkcalls';
+
 import stars from '../asset/profile.png';
 import { connect } from 'react-redux';
 import {getRatedList,guest_id} from '../functions/networkcalls'
@@ -178,5 +173,4 @@ function mapDispatchToProps(dispacher) {
 }
 //export default  App;
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-
 //export default  Profile

@@ -17,12 +17,15 @@ let message = "empty";
 class Search extends React.Component {
     componentDidMount() {
         gui = cookie.load("guest");
+        ;
         console.log(this.props.history.location.pathname);
         if (!gui) {
+            ;
             guest_id().then(res => {
                 cookie.save("guest", res, { path: "/" });
                 gui = res;
-            }, error => {
+            }, error => {;
+
                 console.log(error);
             })
         }
@@ -42,7 +45,7 @@ class Search extends React.Component {
 
             <div style={{ width: '100%' }}>
 
-<NavBarComponent url={this.props.location.pathname}/>
+                <NavBarComponent url={this.props.location.pathname} />
                 {this.props.postUpdate ?
                     <Toast>
                         <Toast.Header>
