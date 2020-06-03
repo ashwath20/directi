@@ -17,11 +17,11 @@ export const getSearch = async (keyword, pageNo) => {
     })
 }
 
-export const getEach = async (id,media) => {
+export const getEach = async (id, media) => {
     return new Promise((res, rej) => {
 
-        console.log(+"/"+media+"/" + id + "?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
-        axios.get("/"+media+"/" + id + "?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US").then(response => {
+        console.log(+"/" + media + "/" + id + "?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
+        axios.get("/" + media + "/" + id + "?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US").then(response => {
             console.log("got")
 
             console.log(response.data);
@@ -48,12 +48,12 @@ export const guest_id = async () => {
         })
     })
 }
-export const getRatedList = async (gi,media) => {
+export const getRatedList = async (gi, media) => {
     return new Promise((res, rej) => {
         console.log(gi);
-console.log("/guest_session/"+gi+"/rated/"+media+"?api_key=" + apikey)
+        console.log("/guest_session/" + gi + "/rated/" + media + "?api_key=" + apikey)
         //console.log("movie/"+id+"?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
-        axios.get("/guest_session/"+gi+"/rated/"+media+"?api_key=" + apikey).then(response => {
+        axios.get("/guest_session/" + gi + "/rated/" + media + "?api_key=" + apikey).then(response => {
             console.log("got")
 
             console.log(response.data);
@@ -65,10 +65,10 @@ console.log("/guest_session/"+gi+"/rated/"+media+"?api_key=" + apikey)
     })
 }
 
-export const getTopList = async (gi,media) => {
+export const getTopList = async (gi, media) => {
     return new Promise((res, rej) => {
         console.log(gi);
-console.log("/trending/movie/week?api_key=" + apikey)
+        console.log("/trending/movie/week?api_key=" + apikey)
         //console.log("movie/"+id+"?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
         axios.get("/trending/movie/week?api_key=" + apikey).then(response => {
             console.log("got")
@@ -81,7 +81,7 @@ console.log("/trending/movie/week?api_key=" + apikey)
         })
     })
 }
-export const postRating = async (gi, movie_id, val,media) => {
+export const postRating = async (gi, movie_id, val, media) => {
     return new Promise((res, rej) => {
 
         const instance = axios.create({
@@ -93,19 +93,19 @@ export const postRating = async (gi, movie_id, val,media) => {
         });
         //console.log("movie/"+id+"?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
         instance.post(
-            "/"+media+"/" + movie_id + "/rating?api_key=" + apikey + "&guest_session_id=" + gi,
+            "/" + media + "/" + movie_id + "/rating?api_key=" + apikey + "&guest_session_id=" + gi,
             {
                 value: val
             }
 
         ).then(response => {
             console.log("got")
-           
+
             console.log(response.data);
             res(response.data)
             //this.props.updateSearchData(res.data.results)
         }, error => {
-            
+
             console.log(error);
             rej(error);
         })

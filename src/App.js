@@ -4,6 +4,7 @@ import './App.css';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Nav from 'react-bootstrap/Nav'
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import Successtab from './screens/Search'
 import Search from './screens/Search';
 import { Navbar, Button, Image, Form, FormControl, Modal, Card, Badge } from 'react-bootstrap';
@@ -41,8 +42,8 @@ class App extends React.Component {
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-      <Nav.Link href="/" style={{color:'#fff'}}>Search</Nav.Link>
-      <Nav.Link href="/profile" style={{color:'#fff'}}>Profile</Nav.Link>
+      <Link to="/" style={{color:'#fff'}}>Search</Link>
+      <Link to="/profile" style={{color:'#fff'}}>Profile</Link>
       
     </Nav>
     

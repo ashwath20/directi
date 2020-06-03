@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button, thead, tr, th, tbody, Navbar, Nav, Modal,Table, Image, Alert, Toast } from 'react-bootstrap'
-
+import {Link} from 'react-router-dom';
 import TitlebarGridList from '../Components/CustomeGrid';
 import request from "superagent";
 import debounce from "lodash.debounce";
@@ -53,9 +53,8 @@ render(){
 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-        <Nav.Link href="/" style={{ color: '#fff' }}>Search</Nav.Link>
-        <Nav.Link href="#link" style={{ color: '#fff' }}>Profile</Nav.Link>
-
+        <Link to="/" style={{color:'#fff'}}>Search</Link>
+        <Link to="/profile" style={{color:'#fff'}}>Profile</Link>
     </Nav>
 
 </Navbar.Collapse>
