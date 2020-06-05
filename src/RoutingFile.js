@@ -12,7 +12,10 @@ export default function RoutingFile(props) {
                 <Route exact path="/" component={App} />
                 <Route exact path="/item/:media/:id" component={Movie} />
                 <Route exact path="/profile" component={Profile} />
+<<<<<<< HEAD
                 <Route exact path="*" component={App}  />
+=======
+>>>>>>> b128f8f77c7f9ecccc2c3c599c83616054cdbcfa
             </Switch>
         </BrowserRouter  >
     );
