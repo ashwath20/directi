@@ -90,11 +90,8 @@ render(){
 
 </Card>
 </div>  
-<<<<<<< HEAD
-<div style={{display:'flex',flexDirection:'row',marginLeft:350}}>
-=======
+
 <div style={{display:'flex',flexDirection:'row',marginLeft:300}}>
->>>>>>> b128f8f77c7f9ecccc2c3c599c83616054cdbcfa
 {this.props.profileData.map(obj=>{
     let j=this.props.Rmovies.results.length;
     if(obj.text==="Reviews")
