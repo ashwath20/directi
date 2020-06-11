@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, Button, thead, tr, th, tbody, Navbar, Nav, Table, Image, Alert, Toast } from 'react-bootstrap'
+import { Card, Button, thead, tr, th, tbody, Navbar, Nav,Dropdown,Table, Image, Alert, Toast } from 'react-bootstrap'
 import { guest_id } from '../functions/networkcalls';
 import { getEach } from '../functions/networkcalls';
 import { postRating } from '../functions/networkcalls';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify';
-
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
 import Rating from '@material-ui/lab/Rating';
@@ -30,10 +30,18 @@ class Search extends React.Component {
             })
         }
         let path = this.props.location.pathname.split('/');
+        
         console.log(path[path.length - 1]);
         getEach(path[path.length - 1], path[path.length - 2]).then(res => {
             console.log(res)
             this.props.updateCurrentMovie(res)
+            console.log(path[path.length-2]);
+            if(path[path.length-2]+""==="tv")
+        {
+            console.log("Calling get crt");
+            console.log(this.props.currentMovie);
+            this.getCreatorsdetail();
+        }
         }, error => {
             console.log(error);
         });
@@ -96,7 +104,19 @@ class Search extends React.Component {
                                             {this.props.currentMovie.overview}
                                         </Card.Text>
                                         <Button variant="primary" onClick={() => { this.props.togleShowRating(true) }}>Rate the Movie</Button>
+                                        <Dropdown>
+  <Dropdown.Toggle variant="success" id="dropdown-basic">
+    Dropdown Button
+  </Dropdown.Toggle>
 
+  <Dropdown.Menu>
+      {this.props.creators.map(item=>  {
+          console.log(item);
+      return ( 
+        <Link to={"/creator/"+item} >   {item}</Link>)})}
+  
+  </Dropdown.Menu>
+</Dropdown>
                                     </Card.Body>
 
                                 </Card>
@@ -190,6 +210,7 @@ class Search extends React.Component {
                                 {this.props.submitRating ?
                                     <CircularProgress color="secondary" />
                                     : null}
+                                   
                                 <Button variant="primary" style={{ alignContent: 'center', display: "flex", justifyContent: "center", alignItems: "center", width: 150, marginLeft: 35, marginTop: 10 }}
                                     onClick={() => {
 
@@ -229,6 +250,18 @@ class Search extends React.Component {
 
 
         )
+
+        
+    }
+    getCreatorsdetail=()=>{
+        let c_id=[];
+        for(let i=0;i<this.props.currentMovie.created_by.length;i++){
+            if(this.props.currentMovie.created_by[i])
+            c_id.push(this.props.currentMovie.created_by[i].id);
+        }
+        console.log(c_id);
+        this.props.updateCreator(c_id);
+
     }
 }
 function mapStateToProps(state) {
@@ -243,7 +276,8 @@ function mapStateToProps(state) {
         currentMovie: state.currentMovie,
         showModalRating: state.showModalRating,
         submitRating: state.submitRating,
-        postUpdate: state.postUpdate
+        postUpdate: state.postUpdate,
+        creators:state.creators
 
     }
 }
@@ -259,7 +293,8 @@ function mapDispatchToProps(dispacher) {
         updateCurrentMovie: (obj) => dispacher({ type: "currentMovie", load: obj }),
         togleShowRating: (val) => dispacher({ type: "rating", load: val }),
         showSubmittedLoader: (val) => dispacher({ type: "submitRating", load: val }),
-        togleToast: (val) => dispacher({ type: "toast", load: val })
+        togleToast: (val) => dispacher({ type: "toast", load: val }),
+        updateCreator:(val)=>dispacher({ type: "creatorList", load: val }),
 
 
     }

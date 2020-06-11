@@ -80,6 +80,22 @@ export const getTopList = async (gi, media) => {
         })
     })
 }
+export const getCreator = async (id) => {
+    return new Promise((res, rej) => {
+        
+
+        //console.log("movie/"+id+"?api_key=3bf50282e6a09fb75967064014a5291c&language=en-US");
+        axios.get("person/"+id+"?api_key=" + apikey).then(response => {
+            console.log("got")
+
+            console.log(response.data);
+            res(response.data)
+            //this.props.updateSearchData(res.data.results)
+        }, error => {
+            rej(error);
+        })
+    })
+}
 
 
 export const postRating = async (gi, movie_id, val, media) => {
